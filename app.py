@@ -9,25 +9,31 @@ api = Api(app)
 class classes(Resource):
     def get(self):
         if("username" in request.headers and "password" in request.headers):
+            if(main.login(request.headers["username"], request.headers["password"])):
+                return "E2"  # incorrect login
             return jsonify(main.getClasses(request.headers["username"], request.headers["password"]))
         else:
-            return "need username and password"
+            return "E1"  # no/missing header data
 
 
 class studentInfo(Resource):
     def get(self):
         if("username" in request.headers and "password" in request.headers):
+            if(main.login(request.headers["username"], request.headers["password"])):
+                return "E2"  # incorrect login
             return jsonify(main.getStudentInfo(request.headers["username"], request.headers["password"]))
         else:
-            return "need username and password"
+            return "E1"  # no/missing header data
 
 
 class schedule(Resource):
     def get(self, mp):
         if("username" in request.headers and "password" in request.headers):
+            if(main.login(request.headers["username"], request.headers["password"])):
+                return "E2"  # incorrect login
             return jsonify(main.getSched(request.headers["username"], request.headers["password"], mp))
         else:
-            return "need username and password"
+            return "E1"  # no/missing header data
 
 
 api.add_resource(classes, "/classes")

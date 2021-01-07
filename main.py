@@ -26,6 +26,9 @@ def login(username, password):
         data={"username": username, "password": password}
     )
     print(result.url)
+    if ("login.cfm" in result.url):
+        return False
+    return True
 
 
 def getStudentInformation(username, password):
