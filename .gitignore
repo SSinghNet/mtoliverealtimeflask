@@ -1,7 +1,6 @@
 # created by virtualenv automatically
 *.log
 **/Lib
-**/Scripts
 **flask-safe-env
 **__pycache__
 *.cfg
