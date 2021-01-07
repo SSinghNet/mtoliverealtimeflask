@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-USERNAME = "3450310391"
-PASSWORD = "DypeMfxvQ3Xm"
+USERNAME = ""
+PASSWORD = ""
 studentInfo = {}
 classes = []
 schedule = {}
@@ -14,7 +14,6 @@ payload = {
     "DISTRICTID": "MountOlive",
     "CFCLIENT_PARENTPORTALROOT": "districtid%3DMountOlive%23dbname%3DMountOlive%23loggedin%3Dfalse%23",
     "PARENTPORTALCODE": "",
-    "PARENTPORTALUSERNAME": USERNAME,
 }
 
 
