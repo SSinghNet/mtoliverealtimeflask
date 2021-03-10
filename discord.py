@@ -20,7 +20,7 @@ data = {
 data["embeds"] = [
     {
         "description" : datetime.today().strftime("%m/%d/%Y"),
-        "title" : day.text
+        "title" : day.text.replace("\"", "")
     }
 ]
 
