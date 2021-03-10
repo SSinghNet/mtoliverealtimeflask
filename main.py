@@ -283,8 +283,8 @@ def getDay(username, password):
     print(result.url)
     pageSoup = BeautifulSoup(result.text, "html.parser")
     results = pageSoup.find_all("td")
-    print(results[9].text.replace("\n", "").replace("\t", "").replace("\r", "")[3:])
-    currentDayCode = ""
+    
+    currentDayCode = results[9].text.replace("\n", "").replace("\t", "").replace("\r", "")[3:]
 
 def getClasses(username, password):
     login(username, password)
