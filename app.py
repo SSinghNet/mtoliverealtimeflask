@@ -6,14 +6,21 @@ app = Flask(__name__)
 api = Api(app)
 
 
+class login(Resource):
+    def get(self):
+        if(main.login(request.headers["username"], request.headers["password"]) == False):
+            return "500"
+        return "400"
+
+
 class classes(Resource):
     def get(self):
         if("username" in request.headers and "password" in request.headers):
             if(main.login(request.headers["username"], request.headers["password"]) == False):
-                return "E2"  # incorrect login
+                return "400"  # incorrect login
             return jsonify(main.getClasses(request.headers["username"], request.headers["password"]))
         else:
-            return "E1"  # no/missing header data
+            return "500"  # no/missing header data
 
 
 class studentInfo(Resource):
@@ -35,10 +42,20 @@ class schedule(Resource):
         else:
             return "E1"  # no/missing header data
 
+class day(Resource):
+    def get(self):
+        if("username" in request.headers and "password" in request.headers):
+            if(main.login(request.headers["username"], request.headers["password"]) == False):
+                return "E2"  # incorrect login
+            return jsonify(main.getCurrentDay(request.headers["username"], request.headers["password"]))
+        else:
+            return "E1"  # no/missing header data
+
 
 api.add_resource(classes, "/classes")
 api.add_resource(studentInfo, "/studentInfo")
 api.add_resource(schedule, "/schedule/<mp>")
+api.add_resource(day, "/day")
 
 if __name__ == "__main__":
     app.run()

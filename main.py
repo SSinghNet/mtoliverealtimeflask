@@ -6,6 +6,7 @@ PASSWORD = ""
 studentInfo = {}
 classes = []
 schedule = {}
+currentDayCode = ""
 
 
 session_requests = requests.session()
@@ -180,9 +181,9 @@ def getGrades(username, password):
                     k["mp" + mp]["assignments"][currentCategory]["categoryPercentage"] = currentCategoryPercent
                     continue
                 if resultsCounter[i].has_attr("class") and "collapse" in resultsCounter[i].get("class"):
-                    assName = resultsCounter[i - 1].text.replace(
-                        "\n", "").replace("\t", "").replace("\r", "")
                     assDate = resultsAssignment[j + 1].text.replace(
+                        "\n", "").replace("\t", "").replace("\r", "")
+                    assName = resultsCounter[i - 1].text.replace(
                         "\n", "").replace("\t", "").replace("\r", "")
                     assPoints = resultsAssignment[j + 2].text.replace("\n", "").replace(
                         "\t", "").replace("\r", "").replace("\\xa0", "")
@@ -272,6 +273,18 @@ def getSchedule(username, password, mp):
         i += 5
    # print(schedule)
 
+def getDay(username, password):
+    schedule_url = "https://www.fridaystudentportal.com/portal/index.cfm?f=myStudent.cfm"
+    result = session_requests.post(
+        schedule_url,
+        cookies=payload,
+        data={"username": username, "password": password}
+    )
+    print(result.url)
+    pageSoup = BeautifulSoup(result.text, "html.parser")
+    results = pageSoup.find_all("td")
+    print(results[9].text.replace("\n", "").replace("\t", "").replace("\r", "")[3:])
+    currentDayCode = ""
 
 def getClasses(username, password):
     login(username, password)
@@ -290,10 +303,14 @@ def getSched(username, password, mp):
     getSchedule(username, password, mp)
     return schedule
 
+def getCurrentDay(username, password):
+    login(username, password)
+    getDay(username, password)
+    return currentDayCode
 
 def main():
     login(USERNAME, PASSWORD)
-    getSchedule(USERNAME, PASSWORD, "1")
+    getDay(USERNAME, PASSWORD)
     # getStudentInformation(USERNAME, PASSWORD)
     # getGrades(USERNAME, PASSWORD)
     # print(studentInfo)
