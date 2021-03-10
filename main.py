@@ -285,7 +285,7 @@ def getDay(username, password):
     pageSoup = BeautifulSoup(result.text, "html.parser")
     results = pageSoup.find_all("td")
     
-    currentDayCode = results[9].text.replace("\n", "").replace("\t", "").replace("\r", "")[3:]
+    currentDayCode = results[9].text.replace("\n", "").replace("\t", "").replace("\r", "")
     return currentDayCode
 
 
