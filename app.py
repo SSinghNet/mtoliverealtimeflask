@@ -47,7 +47,7 @@ class day(Resource):
         if("username" in request.headers and "password" in request.headers):
             if(main.login(request.headers["username"], request.headers["password"]) == False):
                 return "E2"  # incorrect login
-            return main.getCurrentDay(request.headers["username"], request.headers["password"])
+            return main.getDay(request.headers["username"], request.headers["password"])
         else:
             return "E1"  # no/missing header data
 

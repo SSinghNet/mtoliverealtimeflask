@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-USERNAME = ""
-PASSWORD = ""
+USERNAME = "3450310391"
+PASSWORD = "Realtime2021"
 studentInfo = {}
 classes = []
 schedule = {}
@@ -274,6 +274,7 @@ def getSchedule(username, password, mp):
    # print(schedule)
 
 def getDay(username, password):
+    login(username, password)
     schedule_url = "https://www.fridaystudentportal.com/portal/index.cfm?f=myStudent.cfm"
     result = session_requests.post(
         schedule_url,
@@ -285,6 +286,8 @@ def getDay(username, password):
     results = pageSoup.find_all("td")
     
     currentDayCode = results[9].text.replace("\n", "").replace("\t", "").replace("\r", "")[3:]
+    return currentDayCode
+
 
 def getClasses(username, password):
     login(username, password)
@@ -303,14 +306,11 @@ def getSched(username, password, mp):
     getSchedule(username, password, mp)
     return schedule
 
-def getCurrentDay(username, password):
-    login(username, password)
-    getDay(username, password)
-    return currentDayCode
 
 def main():
     login(USERNAME, PASSWORD)
     getDay(USERNAME, PASSWORD)
+    print(currentDayCode)
     # getStudentInformation(USERNAME, PASSWORD)
     # getGrades(USERNAME, PASSWORD)
     # print(studentInfo)
