@@ -1,7 +1,7 @@
 import requests 
 from datetime import datetime
 
-url = "https://discord.com/api/webhooks/834037323871420437/ftXdI8MNaaJ-v6v5VvGloEnR4r--B5o0jY9as8proqi2hg-Q-Qba1zKJlYsZAVTC0Coq" 
+url = "https://discord.com/api/webhooks/837320453769003073/JcrC8JI6yVgYp4bgByTJjue22kVplK7SpEGeOJcLfpVhP-CQF087K5puDrTLfrJXVgJG" 
 
 day = requests.get(
     "https://mtoliverealtime.herokuapp.com/day",
