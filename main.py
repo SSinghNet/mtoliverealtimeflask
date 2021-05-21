@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-USERNAME = "3450310391"
-PASSWORD = "Realtime2021"
 studentInfo = {}
 classes = []
 schedule = {}
