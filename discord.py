@@ -1,11 +1,14 @@
 import requests 
+import sys
 from datetime import datetime
 
-url = "https://discord.com/api/webhooks/837320453769003073/JcrC8JI6yVgYp4bgByTJjue22kVplK7SpEGeOJcLfpVhP-CQF087K5puDrTLfrJXVgJG" 
+url = sys.argv[3] 
+username = sys.argv[1]
+password = sys.argv[2]
 
 day = requests.get(
     "https://mtoliverealtime.herokuapp.com/day",
-    headers={"username": "3450310391", "password": "Realtime2021"},
+    headers={"username": username, "password": password},
 )
 print()
 
@@ -34,5 +37,3 @@ except requests.exceptions.HTTPError as err:
     print(err)
 else:
     print("Payload delivered successfully, code {}.".format(result.status_code))
-
-#result: https://i.imgur.com/DRqXQzA.png
