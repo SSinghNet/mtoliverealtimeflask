@@ -3,3 +3,4 @@ requests
 bs4
 gunicorn 
 flask_restful
+numba

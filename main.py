@@ -1,5 +1,10 @@
 import requests
+import time
+import numba
 from bs4 import BeautifulSoup
+
+USERNAME = ""
+PASSWORD = ""
 
 studentInfo = {}
 classes = []
@@ -76,8 +81,8 @@ def getGradebookOverview(username, password, mp):
     for i in results:
         resultsLength += 1
 
-    i = 0
-    while i < resultsLength:
+    #i = 0
+    for i in numba.prange(0, resultsLength, 3):
         className = results[i].find("a").text
         classUrl = results[i].find("a").attrs["href"].replace(
             "§", "&sect").replace(" ", "")
@@ -126,11 +131,11 @@ def getGradebookOverview(username, password, mp):
                 {"className": className, "classUrl": classUrl, "classSection": classSection, "classTeacher": classTeacher, "classTeacherEmail": classTeacherEmail,
                  "mp"+mp: {"classAverage": classAverage, "classAverageLetter": classAverageLetter, }}
             )
-        i += 3
+        #i += 3
 
 
 def getGrades(username, password):
-    for m in range(4):
+    for m in numba.prange(4):
         mp = "1"
         if(m == 3):
             mp = "4"
@@ -140,7 +145,8 @@ def getGrades(username, password):
             mp = "2"
 
         getGradebookOverview(username, password, mp)
-        for k in classes:
+        for cl in numba.prange(len(classes)):
+            k = classes[cl]
             url = "https://www.fridaystudentportal.com" + k["classUrl"]
             result = session_requests.post(
                 url,
@@ -216,8 +222,8 @@ def getSchedule(username, password, mp):
     schedule["C"] = []
     schedule["D"] = []
 
-    i = 4
-    while i < len(results) - 4:
+    # i = 4
+    for i in numba.prange(4, len(results) - 4, 5):
         classNum = results[i].text.replace("\n", "").replace(
             "\t", "").replace("\r", "").replace(" ", "")
         classNames = [
@@ -236,7 +242,8 @@ def getSchedule(username, password, mp):
                 j = "Lunch"
 
         jj = 0
-        for j in classNames:
+        for cn in numba.prange(len(classNames)):
+            j = classNames[cn]
             k = j.split()
             if(classNum == "LNCH"):
                 className = "Lunch"
@@ -306,9 +313,8 @@ def getSched(username, password, mp):
 
 
 def main():
-    login(USERNAME, PASSWORD)
-    getDay(USERNAME, PASSWORD)
-    print(currentDayCode)
+    # login(USERNAME, PASSWORD)
+    print(getSched(USERNAME, PASSWORD, 1))
     # getStudentInformation(USERNAME, PASSWORD)
     # getGrades(USERNAME, PASSWORD)
     # print(studentInfo)
@@ -316,4 +322,7 @@ def main():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    print("--- %s seconds ---" % (time.time() - start_time))
+
