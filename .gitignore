@@ -5,4 +5,5 @@
 **flask-safe-env
 **__pycache__
 *.cfg
-*.cache
+.cache
+/Scripts/*
