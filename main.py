@@ -12,6 +12,11 @@ schedule = {}
 currentDayCode = ""
 
 
+requests.packages.urllib3.disable_warnings()
+requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
+requests.packages.urllib3.contrib.pyopenssl.util.ssl_.DEFAULT_CIPHERS += ':HIGH:!DH:!aNULL'
+
+
 session_requests = requests.session()
 # cookies for login
 payload = {
