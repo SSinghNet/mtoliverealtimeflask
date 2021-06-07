@@ -27,7 +27,8 @@ def login(username, password):
     result = session_requests.post(
         login_url,
         cookies=payload,
-        data={"username": username, "password": password}
+        data={"username": username, "password": password},
+        verify=False
     )
     print(result.url)
     if ("login.cfm" in result.url):
@@ -284,7 +285,8 @@ def getDay(username, password):
     result = session_requests.post(
         schedule_url,
         cookies=payload,
-        data={"username": username, "password": password}
+        data={"username": username, "password": password},
+        verify=False
     )
     print(result.url)
     pageSoup = BeautifulSoup(result.text, "html.parser")
