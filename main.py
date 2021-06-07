@@ -314,7 +314,7 @@ def getSched(username, password, mp):
 
 def main():
     # login(USERNAME, PASSWORD)
-    print(getSched(USERNAME, PASSWORD, 1))
+    print(getDay(USERNAME, PASSWORD))
     # getStudentInformation(USERNAME, PASSWORD)
     # getGrades(USERNAME, PASSWORD)
     # print(studentInfo)

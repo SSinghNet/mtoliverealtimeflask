@@ -1,3 +1,4 @@
+from main import getDay
 import requests 
 import sys
 from datetime import datetime
@@ -6,10 +7,7 @@ url = sys.argv[3]
 username = sys.argv[1]
 password = sys.argv[2]
 
-day = requests.get(
-    "https://mtoliverealtime.herokuapp.com/day",
-    headers={"username": username, "password": password},
-)
+day = getDay(username, password)
 print()
 
 #for all params, see https://discordapp.com/developers/docs/resources/webhook#execute-webhook
@@ -23,7 +21,7 @@ data = {
 data["embeds"] = [
     {
         "description" : datetime.today().strftime("%m/%d/%Y"),
-        "title" : day.text.replace("\"", "")
+        "title" : day.replace("\"", "")
     }
 ]
 
